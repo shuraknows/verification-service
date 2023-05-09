@@ -1,0 +1,21 @@
+parameters:
+
+services:
+    _defaults:
+        bind:
+            $verificationTTL: '%env(VERIFICATION_TTL_SECONDS)%'
+            $validationCodeLength: '%env(VALIDATION_CODE_LENGTH)%'
+            $templateServiceUrl: '%env(TEMPLATE_RENDERING_SERVICE)%'
+            $notificationSenderEmail: '%env(NOTIFICATION_SENDER_EMAIL)%'
+            $notificationEmailSubject: '%env(NOTIFICATION_EMAIL_SUBJECT)%'
+            $gotifyServerUrl: '%env(GOTIFY_SERVER_URL)%'
+            $gotifyAppToken: '%env(GOTIFY_APP_TOKEN)%'
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'

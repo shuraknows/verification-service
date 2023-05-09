@@ -1,0 +1,17 @@
+framework:
+    messenger:
+        transports:
+            verification_created: "%env(MESSENGER_VERIFICATION_CREATED_TRANSPORT_DSN)%"
+            verification_confirmed: "%env(MESSENGER_VERIFICATION_CONFIRMED_TRANSPORT_DSN)%"
+            verification_confirmation_failed: "%env(MESSENGER_VERIFICATION_CONFIRMATION_FAILED_TRANSPORT_DSN)%"
+
+            notification_created: "%env(MESSENGER_NOTIFICATION_CREATED_TRANSPORT_DSN)%"
+            notification_dispatched: "%env(MESSENGER_NOTIFICATION_DISPATCHED_TRANSPORT_DSN)%"
+
+        routing:
+            'App\Infrastructure\Common\Events\VerificationCreatedMessage': verification_created
+            'App\Infrastructure\Common\Events\VerificationConfirmedMessage': verification_confirmed
+            'App\Infrastructure\Common\Events\VerificationConfirmationFailedMessage': verification_confirmation_failed
+
+            'App\Infrastructure\Common\Events\NotificationCreatedMessage': notification_created
+            'App\Infrastructure\Common\Events\NotificationDispatchedMessage': notification_dispatched

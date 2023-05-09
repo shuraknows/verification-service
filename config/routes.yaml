@@ -1,0 +1,11 @@
+template_actions:
+    resource:
+        path: ../src/Infrastructure/Template/Http/Action
+        namespace: App\Infrastructure\Template\Http\Action
+    type: attribute
+
+verification_actions:
+    resource:
+        path: ../src/Infrastructure/Verification/Http/Action
+        namespace: App\Infrastructure\Verification\Http\Action
+    type: attribute

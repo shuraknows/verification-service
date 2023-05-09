@@ -1,0 +1,82 @@
+version: "3.4"
+
+services:
+  php:
+    env_file:
+      - .env
+    user: "www-data:www-data"
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    depends_on:
+      - mysql
+      - rabbitmq
+      - gotify
+#    volumes:
+#      - ./:/var/www/
+
+  php-worker:
+    env_file:
+      - .env
+    user: "root:root"
+    build:
+      context: .
+      dockerfile: docker/php/DockerfileWorker
+#    volumes:
+#      - ./:/var/www/
+    depends_on:
+      - mysql
+      - rabbitmq
+      - gotify
+
+  nginx:
+    restart: "no"
+    ports:
+      - ${NGINX_EXPOSE_PORT}:80
+    env_file:
+      - .env
+    image: nginx:latest
+    volumes:
+      - ./public/:/var/www/public/
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
+  mysql:
+    env_file:
+      - .env
+    image: mysql:8.0
+    restart: "no"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - ${MYSQL_EXPOSE_PORT}:${MYSQL_PORT}
+    expose:
+      - ${MYSQL_PORT}
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    env_file:
+      - .env
+    ports:
+      - ${RABBIT_API_EXPOSE_PORT}:5672
+      - ${RABBIT_MANAGER_EXPOSE_PORT}:15672
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - ${MAILHOG_EXPOSE_SMTP_PORT}:1025 # smtp server
+      - ${MAILHOG_EXPOSE_WEB_PORT}:8025 # web ui
+
+  gotify:
+    build:
+      context: .
+      dockerfile: docker/gotify/Dockerfile
+    ports:
+      - ${GOTIFY_WEB_PORT}:80
+
