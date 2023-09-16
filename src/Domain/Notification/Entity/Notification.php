@@ -11,18 +11,14 @@ use App\Domain\Notification\NotifierResolverInterface;
 
 final class Notification extends AbstractDomainEventPublishingAggregate
 {
-    private NotificationId $id;
-    private Recipient $recipient;
-    private Channel $channel;
-    private Body $body;
     private Dispatched $dispatched;
 
-    private function __construct(NotificationId $id, Recipient $recipient, Channel $channel, Body $body)
-    {
-        $this->id = $id;
-        $this->recipient = $recipient;
-        $this->channel = $channel;
-        $this->body = $body;
+    private function __construct(
+        private readonly NotificationId $id,
+        private readonly Recipient $recipient,
+        private readonly Channel $channel,
+        private readonly Body $body
+    ) {
         $this->dispatched = new Dispatched(false);
     }
 
@@ -52,7 +48,7 @@ final class Notification extends AbstractDomainEventPublishingAggregate
     public function dispatch(NotifierResolverInterface $resolver): void
     {
         $resolver->resolve($this->channel)->notify($this);
-        $this->dispatched->markAsDispatched();
+        $this->dispatched = new Dispatched(true);
         $this->record(new NotificationDispatched($this->id));
     }
 }

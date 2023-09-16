@@ -10,11 +10,6 @@ final class Dispatched
     {
     }
 
-    public function markAsDispatched(): void
-    {
-        $this->dispatched = true;
-    }
-
     public function isDispatched(): bool
     {
         return $this->dispatched;
