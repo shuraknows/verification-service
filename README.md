@@ -1,5 +1,7 @@
 # Verification service
 
+Description: https://github.com/shuraknows/docs-home-task-hh
+
 ### Technology Stack
 * PHP 8.2 + Symfony 6.2 + Nginx
 * Docker
