@@ -17,6 +17,7 @@ docker compose up
 NB!: If you have port conflicts, you can change them in the .env file
 
 ### Some links:
+* API documentation: http://127.0.0.1:7773/api/doc
 * MailHog web interface: http://127.0.0.1:8025/
 * RabbitMQ web interface [guest/guest]: http://127.0.0.1:15672/
 * Gotify [admin/admin] http://127.0.0.1:18080/

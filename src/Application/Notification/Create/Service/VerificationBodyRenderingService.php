@@ -21,13 +21,10 @@ final readonly class VerificationBodyRenderingService
 
     private function resolveSlug(Channel $channel): string
     {
-        switch (true) {
-            case $channel->isEmail():
-                return 'email-verification';
-            case $channel->isSms():
-                return 'mobile-verification';
-            default:
-                throw new InvalidArgumentException('Invalid channel');
-        }
+        return match (true) {
+            $channel->isEmail() => 'email-verification',
+            $channel->isSms() => 'mobile-verification',
+            default => throw new InvalidArgumentException('Invalid channel'),
+        };
     }
 }
