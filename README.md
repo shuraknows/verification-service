@@ -12,10 +12,8 @@ Description: https://github.com/shuraknows/docs-home-task-hh
 
 ### How to run
 ```bash
-git clone https://github.com/shuraknows/verification-service.git
-cd verification-service
-docker compose up
-``` 
+git clone https://github.com/shuraknows/verification-service.git && cd verification-service && docker compose up
+```
 NB!: If you have port conflicts, you can change them in the .env file
 
 ### Some links:
