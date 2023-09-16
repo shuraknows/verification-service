@@ -13,9 +13,9 @@ use DateTimeImmutable;
 abstract readonly class AbstractVerificationEvent implements DomainEventInterface
 {
     public function __construct(
-        private VerificationId    $id,
-        private Code              $code,
-        private Subject           $subject,
+        private VerificationId $id,
+        private Code $code,
+        private Subject $subject,
         private DateTimeImmutable $occurredAt
     ) {
     }
