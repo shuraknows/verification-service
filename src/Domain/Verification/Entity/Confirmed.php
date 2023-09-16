@@ -10,7 +10,7 @@ final class Confirmed
     {
     }
 
-    public function isConfirmed(): bool
+    public function confirmed(): bool
     {
         return $this->confirmed;
     }

@@ -93,11 +93,11 @@ final class Verification extends AbstractDomainEventPublishingAggregate
             throw new NoPermissionToConfirmVerificationException();
         }
 
-        if ($this->isVerificationExpired(new DateTimeImmutable())) {
+        if ($this->expired(new DateTimeImmutable())) {
             throw new VerificationExpiredException();
         }
 
-        if ($this->confirmed->isConfirmed()) {
+        if ($this->confirmed->confirmed()) {
             return;
         }
 
@@ -112,9 +112,9 @@ final class Verification extends AbstractDomainEventPublishingAggregate
         $this->confirmed = new Confirmed(true);
     }
 
-    private function isVerificationExpired(DateTimeImmutable $now): bool
+    private function expired(DateTimeImmutable $now): bool
     {
-        return $this->expiresAt->isExpired($now) ||
+        return $this->expiresAt->expired($now) ||
             $this->confirmationAttemptCount->reached(self::MAX_CONFIRMATION_ATTEMPT_COUNT);
     }
 }

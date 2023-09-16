@@ -12,7 +12,7 @@ final readonly class ExpiresAt
     {
     }
 
-    public function isExpired(DateTimeImmutable $now = null): bool
+    public function expired(DateTimeImmutable $now = null): bool
     {
         return $this->expiresAt < $now;
     }

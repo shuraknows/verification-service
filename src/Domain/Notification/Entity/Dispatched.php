@@ -10,7 +10,7 @@ final class Dispatched
     {
     }
 
-    public function isDispatched(): bool
+    public function dispatched(): bool
     {
         return $this->dispatched;
     }
